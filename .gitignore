@@ -5,4 +5,4 @@ bin/
 Win32/
 
 # IDE files
-.vscode
+.vs
