@@ -7,10 +7,10 @@ file(GLOB INCS "${INCROOT}/*.h")
 file(GLOB SRCS "${SRCROOT}/*.cpp")
 
 # Create Executable
-add_executable(Application ${SRCS} ${INCS})
+add_executable(Client ${SRCS} ${INCS})
 
 # Link with Framework
-#target_link_libraries(Application Framework)
+#target_link_libraries(Client Framework)
 
 # We are using C++
-set_target_properties(Application PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(Client PROPERTIES LINKER_LANGUAGE CXX)
