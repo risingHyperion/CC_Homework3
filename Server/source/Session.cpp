@@ -81,6 +81,8 @@ void Session::on_write(boost::beast::error_code ec, std::size_t bytes_transferre
 		std::cerr << "write" << ": " << ec.message() << "\n";
 	}
 
+	std::cout << boost::beast::buffers(_buffer.data());
+
 	_buffer.consume(_buffer.size());
 
 	do_read();

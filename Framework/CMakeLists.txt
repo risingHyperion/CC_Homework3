@@ -16,22 +16,24 @@ find_package(Boost 1.68.0 COMPONENTS system REQUIRED)
 if(Boost_FOUND)
 	message(STATUS "Boost was found")
 	message(STATUS "Trying to add include directories, the used variable is ${Boost_INCLUDE_DIR}")
+
+	# Set paths
+	set(INCROOT ${CMAKE_CURRENT_SOURCE_DIR}/include)
+	set(SRCROOT ${CMAKE_CURRENT_SOURCE_DIR}/source)
 	
-	include_directories (${Boost_INCLUDE_DIR})
+	include_directories (${INCROOT} ${Boost_INCLUDE_DIR})
+
+	# Get files
+	file(GLOB INCS "${INCROOT}/*.h")
+	file(GLOB SRCS "${SRCROOT}/*.cpp")
+
+	# Create Executable
+	add_executable(${APP_NAME} ${INCS} ${SRCS})
+
+	target_link_libraries(${APP_NAME} ${Boost_LIBRARIES})
 else()
 	message(FATAL_ERROR "Boost library has not been found. Exiting...")
 endif()
-
-# Set paths to files
-set(INCROOT ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(SRCROOT ${CMAKE_CURRENT_SOURCE_DIR}/source)
-
-# Get the files
-file(GLOB INCS "${INCROOT}/*.h")
-file(GLOB SRCS "${SRCROOT}/*.cpp")
-
-# Create Executable
-add_executable(${APP_NAME} ${SRCS} ${INCS})
 
 # We are using C++
 set_target_properties(${APP_NAME} PROPERTIES LINKER_LANGUAGE CXX)

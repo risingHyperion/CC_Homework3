@@ -3,19 +3,11 @@
 
 #include "Listener.h"
 
-int main(int argc, char* argv[])
+int main()
 {
-	if (argc != 4)
-	{
-		std::cerr <<
-			"Usage: boost::beast::websocket-server-async <address> <port> <threads>\n" <<
-			"Example:\n" <<
-			"    boost::beast::websocket-server-async 0.0.0.0 8080 1\n";
-		return EXIT_FAILURE; 
-	}
-	auto const address = boost::asio::ip::make_address(argv[1]);
-	auto const port = static_cast<unsigned short>(std::atoi(argv[2]));
-	auto const threads = std::max<int>(1, std::atoi(argv[3]));
+	const auto address = boost::asio::ip::make_address("192.168.0.101");
+	const unsigned short port = 2751;
+	const auto threads = std::max<int>(1, 10);
 
 	// The io_context is required for all I/O
 	boost::asio::io_context ioc{ threads };

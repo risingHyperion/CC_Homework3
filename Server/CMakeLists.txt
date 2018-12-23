@@ -10,7 +10,7 @@ set(Boost_USE_MULTITHREADED ON)
 message(STATUS "*** Parsing ${APP_NAME} ***")
 
 # Try to find boost
-find_package(Boost 1.68.0 COMPONENTS system date_time REQUIRED)
+find_package(Boost 1.68.0 COMPONENTS system REQUIRED date_time REQUIRED)
 
 # Check if found
 if(Boost_FOUND)
