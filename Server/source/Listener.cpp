@@ -3,38 +3,38 @@
 #include "Listener.h"
 #include "Session.h"
 
-Listener::Listener(boost::asio::io_context& ioc, boost::asio::ip::tcp::endpoint endpoint) : _acceptor(ioc), _socket(ioc)
+Listener::Listener(boost::asio::io_context& ioContext, boost::asio::ip::tcp::endpoint endpoint) : acceptor(ioContext), socket(ioContext)
 {
-	boost::beast::error_code ec;
+	boost::beast::error_code errorCode;
 
-	_acceptor.open(endpoint.protocol(), ec);
+	this->acceptor.open(endpoint.protocol(), errorCode);
 
-	if (ec)
+	if (errorCode)
 	{
-		std::cerr << "open" << ": " << ec.message() << "\n";
+		std::cerr << "open" << ": " << errorCode.message() << "\n";
 		return;
 	}
 
-	_acceptor.set_option(boost::asio::socket_base::reuse_address(true), ec);
-	if (ec)
+	this->acceptor.set_option(boost::asio::socket_base::reuse_address(true), errorCode);
+	if (errorCode)
 	{
-		std::cerr << "set_option" << ": " << ec.message() << "\n";
+		std::cerr << "set_option" << ": " << errorCode.message() << "\n";
 		return;
 	}
 
-	_acceptor.bind(endpoint, ec);
-	if (ec)
+	this->acceptor.bind(endpoint, errorCode);
+	if (errorCode)
 	{
-		std::cerr << "bind" << ": " << ec.message() << "\n";
+		std::cerr << "bind" << ": " << errorCode.message() << "\n";
 
 		return;
 	}
 
-	_acceptor.listen(boost::asio::socket_base::max_listen_connections, ec);
+	this->acceptor.listen(boost::asio::socket_base::max_listen_connections, errorCode);
 
-	if (ec)
+	if (errorCode)
 	{
-		std::cerr << "listen" << ": " << ec.message() << "\n";
+		std::cerr << "listen" << ": " << errorCode.message() << "\n";
 
 		return;
 	}
@@ -42,7 +42,7 @@ Listener::Listener(boost::asio::io_context& ioc, boost::asio::ip::tcp::endpoint 
 
 void Listener::run()
 {
-	if (!_acceptor.is_open())
+	if (!this->acceptor.is_open())
 	{
 		return;
 	}
@@ -52,23 +52,23 @@ void Listener::run()
 
 void Listener::do_accept()
 {
-	_acceptor.async_accept(
-		_socket,
+	this->acceptor.async_accept(
+		this->socket,
 		std::bind(
 			&Listener::on_accept,
 			shared_from_this(),
 			std::placeholders::_1));
 }
 
-void Listener::on_accept(boost::beast::error_code ec)
+void Listener::on_accept(boost::beast::error_code errorCode)
 {
-	if (ec)
+	if (errorCode)
 	{
-		std::cerr << "accept" << ": " << ec.message() << "\n";
+		std::cerr << "accept" << ": " << errorCode.message() << "\n";
 	}
 	else
 	{
-		std::make_shared<Session>(std::move(_socket))->run();
+		std::make_shared<Session>(std::move(this->socket))->run();
 	}
 
 	do_accept();

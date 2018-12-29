@@ -7,24 +7,22 @@ int main()
 {
 	const auto address = boost::asio::ip::make_address("192.168.0.101");
 	const unsigned short port = 2751;
-	const auto threads = std::max<int>(1, 10);
+	const auto threadsCount = 10;
 
 	// The io_context is required for all I/O
-	boost::asio::io_context ioc{ threads };
+	boost::asio::io_context ioContext{ threadsCount };
 
 	// Create and launch a listening port
-	std::make_shared<Listener>(ioc, boost::asio::ip::tcp::endpoint{ address, port })->run();
+	std::make_shared<Listener>(ioContext, boost::asio::ip::tcp::endpoint{ address, port })->run();
 
 	// Run the I/O service on the requested number of threads
-	std::vector<std::thread> v;
-	v.reserve(threads - 1);
-	for (auto i = threads - 1; i > 0; --i)
-		v.emplace_back(
-			[&ioc]
+	std::vector<std::thread> threads;
+
+	threads.reserve(threadsCount - 1);
+	for (auto index = 0; index < threadsCount; ++index)
 	{
-		ioc.run();
-	});
-	ioc.run();
+		threads.emplace_back([&ioContext] { ioContext.run(); });
+	}
 
 	return EXIT_SUCCESS;
 }
