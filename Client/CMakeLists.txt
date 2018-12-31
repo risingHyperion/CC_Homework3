@@ -30,7 +30,11 @@ if(Boost_FOUND)
 	# Create Executable
 	add_executable(${APP_NAME} ${INCS} ${SRCS})
 	
-	target_link_libraries(${APP_NAME} ${Boost_LIBRARIES})
+	# Path to Framewrok
+	link_directories(${PROJECT_SOURCE_DIR}/build/lib)
+
+	# Link dependencies to current application
+	target_link_libraries(${APP_NAME} ${Boost_LIBRARIES} Framework)
 else()
 	message(FATAL_ERROR "Boost library has not been found. Exiting...")
 endif()
@@ -39,4 +43,4 @@ endif()
 set_target_properties(${APP_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 # Path to exe
-set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/exe")
+set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/exe)

@@ -1,5 +1,5 @@
 # Application name
-set(APP_NAME "Framwork")
+set(APP_NAME "Framework")
 
 # Set Boost environment
 set(BOOST_ROOT "C:/boost/boost_1_68_0/")
@@ -30,6 +30,7 @@ if(Boost_FOUND)
 	# Create Executable
 	add_library(${APP_NAME} STATIC ${INCS} ${SRCS})
 
+	# Link dependencies to current application
 	target_link_libraries(${APP_NAME} ${Boost_LIBRARIES})
 else()
 	message(FATAL_ERROR "Boost library has not been found. Exiting...")
