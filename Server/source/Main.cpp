@@ -19,10 +19,12 @@ int main()
 	std::vector<std::thread> threads;
 
 	threads.reserve(threadsCount - 1);
-	for (auto index = 0; index < threadsCount; ++index)
+	for (auto index = 0; index < threadsCount - 1; ++index)
 	{
 		threads.emplace_back([&ioContext] { ioContext.run(); });
 	}
+
+	ioContext.run();
 
 	return EXIT_SUCCESS;
 }

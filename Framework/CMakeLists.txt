@@ -28,7 +28,7 @@ if(Boost_FOUND)
 	file(GLOB SRCS "${SRCROOT}/*.cpp")
 
 	# Create Executable
-	add_executable(${APP_NAME} ${INCS} ${SRCS})
+	add_library(${APP_NAME} STATIC ${INCS} ${SRCS})
 
 	target_link_libraries(${APP_NAME} ${Boost_LIBRARIES})
 else()
@@ -37,3 +37,6 @@ endif()
 
 # We are using C++
 set_target_properties(${APP_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+
+# Path to lib
+set_target_properties(${APP_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/lib")

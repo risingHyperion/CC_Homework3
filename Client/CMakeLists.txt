@@ -37,3 +37,6 @@ endif()
 
 # We are using C++
 set_target_properties(${APP_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+
+# Path to exe
+set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/exe")
