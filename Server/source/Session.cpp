@@ -60,9 +60,14 @@ void Session::on_read(boost::beast::error_code errorCode, std::size_t bytes_tran
 		std::cerr << "read" << ": " << errorCode.message() << "\n";
 	}
 
+	this->response = this->responseFactory.generateResponse(
+		boost::beast::buffers_to_string(
+			this->buffer.data()));
+	auto responseAsBuffer = boost::asio::buffer(response);
+
 	this->webSocket.text(this->webSocket.got_text());
 	this->webSocket.async_write(
-		this->buffer.data(),
+		responseAsBuffer,
 		boost::asio::bind_executor(
 			this->strand,
 			std::bind(

@@ -21,7 +21,9 @@ if(Boost_FOUND)
 	set(INCROOT ${CMAKE_CURRENT_SOURCE_DIR}/include)
 	set(SRCROOT ${CMAKE_CURRENT_SOURCE_DIR}/source)
 	
-	include_directories (${INCROOT} ${Boost_INCLUDE_DIR})
+	set(INCFRAMEWORK ${PROJECT_SOURCE_DIR}/Framework/include)
+	
+	include_directories(${INCROOT} ${Boost_INCLUDE_DIR} ${INCFRAMEWORK})
 
 	# Get files
 	file(GLOB INCS "${INCROOT}/*.h")
@@ -29,8 +31,8 @@ if(Boost_FOUND)
 
 	# Create Executable
 	add_executable(${APP_NAME} ${INCS} ${SRCS})
-	
-	# Path to Framewrok
+
+	# Path to Framework
 	link_directories(${PROJECT_SOURCE_DIR}/build/lib)
 
 	# Link dependencies to current application

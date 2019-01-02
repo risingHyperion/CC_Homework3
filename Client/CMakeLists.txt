@@ -10,7 +10,7 @@ set(Boost_USE_MULTITHREADED ON)
 message(STATUS "*** Parsing ${APP_NAME} ***")
 
 # Try to find boost
-find_package(Boost 1.68.0 COMPONENTS system REQUIRED date_time REQUIRED)
+find_package(Boost 1.68.0 COMPONENTS system REQUIRED date_time REQUIRED filesystem REQUIRED)
 
 # Check if found
 if(Boost_FOUND)
@@ -20,8 +20,10 @@ if(Boost_FOUND)
 	# Set paths
 	set(INCROOT ${CMAKE_CURRENT_SOURCE_DIR}/include)
 	set(SRCROOT ${CMAKE_CURRENT_SOURCE_DIR}/source)
+
+	set(INCFRAMEWORK ${PROJECT_SOURCE_DIR}/Framework/include)
 	
-	include_directories (${INCROOT} ${Boost_INCLUDE_DIR})
+	include_directories(${INCROOT} ${Boost_INCLUDE_DIR} ${INCFRAMEWORK})
 
 	# Get files
 	file(GLOB INCS "${INCROOT}/*.h")
@@ -29,8 +31,8 @@ if(Boost_FOUND)
 
 	# Create Executable
 	add_executable(${APP_NAME} ${INCS} ${SRCS})
-	
-	# Path to Framewrok
+
+	# Path to Framework
 	link_directories(${PROJECT_SOURCE_DIR}/build/lib)
 
 	# Link dependencies to current application

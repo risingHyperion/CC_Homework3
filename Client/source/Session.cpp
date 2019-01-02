@@ -6,6 +6,11 @@
 #include <boost/beast/websocket.hpp>
 #include <boost/asio/connect.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/asio/buffer.hpp>
 
 #include "Session.h"
 
@@ -16,11 +21,11 @@ Session::Session(boost::asio::io_context& ioContext) : resolver(ioContext), webS
 }
 
 // Start the asynchronous operation
-void Session::Session::run(char const* host, char const* port, char const* text)
+void Session::Session::run(char const* host, char const* port, const std::string& message)
 {
 	// Save these for later
 	this->host = host;
-	this->text = text;
+	this->message = message;
 
 	// Look up the domain name
 	this->resolver.async_resolve(
@@ -73,9 +78,11 @@ void Session::on_handshake(boost::beast::error_code errorCode)
 		std::cerr << "handshake" << ": " << errorCode.message() << "\n";
 	}
 
+	auto requestAsBuffer = boost::asio::buffer(this->message);
+
 	// Send the message
 	this->webSocket.async_write(
-		boost::asio::buffer(this->text),
+		requestAsBuffer,
 		std::bind(
 			&Session::on_write,
 			shared_from_this(),
@@ -111,12 +118,28 @@ void Session::on_read(boost::beast::error_code errorCode, std::size_t bytes_tran
 		std::cerr << "read" << ": " << errorCode.message() << "\n";
 	}
 
+	write_response_to_file();
+
 	// Close the boost::boost::beast::websocket connection
 	this->webSocket.async_close(boost::beast::websocket::close_code::normal,
 		std::bind(
 			&Session::on_close,
 			shared_from_this(),
 			std::placeholders::_1));
+}
+
+void Session::write_response_to_file()
+{
+	boost::property_tree::ptree result;
+	std::stringstream ss;
+
+	ss << boost::beast::buffers(this->buffer.data());
+
+	boost::property_tree::read_json(ss, result);
+
+	boost::filesystem::path path(result.get<std::string>("File"));
+	boost::filesystem::ofstream ofs(path);
+	ofs << boost::beast::buffers(this->buffer.data());
 }
 
 void Session::on_close(boost::beast::error_code errorCode)

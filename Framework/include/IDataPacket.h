@@ -5,8 +5,8 @@ namespace Framework
 	class IDataPacket
 	{
 	public:
-		virtual void interpretPacket() = 0;
+		IDataPacket() = default;
 
-		virtual ~IDataPacket() = default;
+		virtual std::string getContentAsString() const = 0;
 	};
 }

@@ -5,12 +5,16 @@
 #include <boost/beast/websocket.hpp>
 #include <boost/asio/strand.hpp>
 
+#include "ResponseFactory.h"
+
 class Session : public std::enable_shared_from_this<Session>
 {
 private:
 	boost::beast::websocket::stream<boost::asio::ip::tcp::socket> webSocket;
 	boost::asio::strand<boost::asio::io_context::executor_type> strand;
 	boost::beast::multi_buffer buffer;
+	std::string response;
+	ResponseFactory responseFactory;
 
 public:
 	explicit Session(boost::asio::ip::tcp::socket socket);
