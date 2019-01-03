@@ -15,10 +15,12 @@ int main(int argc, char** argv)
 
 	auto handshake = requestsManager.getMap().at("Handshake")->getContentAsString();
 	auto sum = requestsManager.getMap().at("Sum")->getContentAsString();
+	auto wordcounter = requestsManager.getMap().at("WordCounter")->getContentAsString();
 
 	// Launch the asynchronous operation
 	std::make_shared<Session>(ioContext)->run(host, port, handshake);
 	std::make_shared<Session>(ioContext)->run(host, port, sum);
+	std::make_shared<Session>(ioContext)->run(host, port, wordcounter);
 
 	// Run the I/O service. The call will return when
 	// the socket is closed.
