@@ -28,7 +28,7 @@ std::string DateResponse::interpretPacket(const boost::property_tree::ptree& pac
 		this->content.push_back(boost::property_tree::ptree::value_type("Error", "Anul este mai mic decat 0"));
 		isDateValid = false;
 	}
-
+	//Switch after Month
 	if (isDateValid) {
 		switch (Month)
 		{
