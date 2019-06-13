@@ -29,6 +29,7 @@ std::string DateResponse::interpretPacket(const boost::property_tree::ptree& pac
 		isDateValid = false;
 	}
 	//Switch after Month
+	//Afisare in fisier si descriere detaliata date
 	if (isDateValid) {
 		switch (Month)
 		{
