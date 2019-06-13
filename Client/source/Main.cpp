@@ -5,8 +5,8 @@
 
 int main(int argc, char** argv)
 {
-	const auto host = "192.168.0.101";
-	const auto port = "2751";
+	const auto host = "127.0.0.1";
+	const auto port = "8888";
 
 	// The io_context is required for all I/O
 	boost::asio::io_context ioContext;

@@ -1,0 +1,1 @@
+{"Action":"WordCounter","File":"count.txt","Result":"9"}

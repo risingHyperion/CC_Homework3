@@ -5,8 +5,8 @@
 
 int main()
 {
-	const auto address = boost::asio::ip::make_address("192.168.0.101");
-	const unsigned short port = 2751;
+	const auto address = boost::asio::ip::make_address("127.0.0.1");
+	const unsigned short port = 8888;
 	const auto threadsCount = 10;
 
 	// The io_context is required for all I/O
