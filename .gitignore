@@ -1,8 +1,0 @@
-# Exclude build files
-build/
-build_win32/
-bin/
-Win32/
-
-# IDE files
-.vs

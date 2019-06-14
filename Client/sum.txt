@@ -1,1 +1,0 @@
-{"Action":"Sum","File":"sum.txt","Result":"6"}
