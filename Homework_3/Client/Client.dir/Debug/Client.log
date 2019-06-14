@@ -1,0 +1,18 @@
+﻿  Building Custom Rule C:/Users/rober/Desktop/raw/Client/CMakeLists.txt
+  CMake does not need to re-run because C:/Users/rober/Desktop/raw/Client/CMakeFiles/generate.stamp is up-to-date.
+  HandshakeRequest.cpp
+  Main.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+  RequestsManager.cpp
+  Session.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+  SumRequest.cpp
+  WordCountRequest.cpp
+  Generating Code...
+  Client.vcxproj -> C:\Users\rober\Desktop\raw\build\exe\Debug\Client.exe

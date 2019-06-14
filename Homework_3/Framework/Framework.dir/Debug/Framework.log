@@ -1,0 +1,2 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(1879,5): warning : The referenced project 'C:\Users\rober\Desktop\raw\ZERO_CHECK.vcxproj' does not exist.
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(405,5): error MSB3191: Unable to create directory "C:\Users\rober\Desktop\raw\build\lib\Debug\". Access to the path 'C:\Users\rober\Desktop\raw\build\lib\Debug\' is denied.
