@@ -14,7 +14,7 @@ std::string DateResponse::interpretPacket(const boost::property_tree::ptree& pac
 	auto Day = atoi(packet.get<std::string>("Day").c_str());
 
 	bool isDateValid = true;
-	//Adaugare validare pentru data introdusa
+	// Added data validation
 	this->content.push_back(boost::property_tree::ptree::value_type("File", "date.txt"));
 	if (Month >= 13 || Month < 1) {
 		this->content.push_back(boost::property_tree::ptree::value_type("Error", "Lunile intr-un an pot lua valori intre 1-12"));
@@ -28,8 +28,8 @@ std::string DateResponse::interpretPacket(const boost::property_tree::ptree& pac
 		this->content.push_back(boost::property_tree::ptree::value_type("Error", "Anul este mai mic decat 0"));
 		isDateValid = false;
 	}
-	//Switch after Month
-	//Afisare in fisier si descriere detaliata date
+	// Switch after Month
+	// Writing too designated file
 	if (isDateValid) {
 		switch (Month)
 		{
